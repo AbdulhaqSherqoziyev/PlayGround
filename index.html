@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101a20" />
+  <title>REALCHEM — Virtual Laboratory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Realchem home"><span class="brand-mark"><i></i><i></i><i></i></span><span>REAL<span class="brand-light">CHEM</span><small>VIRTUAL LABORATORY</small></span></a>
+      <div class="top-center"><span class="live-dot"></span><span>OPEN LAB</span><span class="top-divider"></span><span id="clock">00:00:00</span><span class="top-divider"></span><span>SESSION 01</span></div>
+      <div class="top-actions"><button class="icon-btn theme-toggle" title="Toggle appearance" aria-label="Toggle appearance">◐</button><button class="icon-btn" id="journal-open" title="Open lab journal" aria-label="Open lab journal">▤<span class="journal-count" id="journal-count">0</span></button><button class="profile"><span class="avatar">AL</span><span class="profile-name">Alex Lee</span><span class="chevron">⌄</span></button></div>
+    </header>
+    <main class="workspace">
+      <aside class="inventory panel">
+        <div class="panel-heading"><div><div class="eyebrow">YOUR MATERIALS <span class="count-pill">08</span></div><h2>Inventory</h2></div><button class="quiet-btn" id="search-toggle" aria-label="Search chemicals">⌕</button></div>
+        <label class="search-box" id="search-box"><span>⌕</span><input id="search" placeholder="Search compounds..." autocomplete="off" /></label>
+        <div class="category-row"><button class="category active" data-category="all">All</button><button class="category" data-category="liquid">Liquids</button><button class="category" data-category="solid">Solids</button></div>
+        <label class="amount-control"><span>TAKE AMOUNT</span><div><input id="amount-input" type="number" min="0.1" max="100" step="0.1" value="2.0"><b>g</b></div></label>
+        <div class="inventory-list" id="inventory-list"></div>
+        <div class="inventory-foot"><span class="safe-icon">✳</span><span>Curated for a safe learning environment</span></div>
+      </aside>
+      <section class="lab-area">
+        <div class="lab-toolbar"><div class="breadcrumb">WORKSPACE <span>/</span> <b>FREE LABORATORY</b></div><div class="toolbar-actions"><button id="guide-btn" class="toolbar-btn">ⓘ <span>How to use</span></button><button id="reset-btn" class="toolbar-btn">↺ <span>Reset bench</span></button><button class="toolbar-btn fullscreen" id="fullscreen-btn" title="Focus view">⛶</button></div></div>
+        <div class="scene-wrap" id="scene-wrap">
+          <div class="scene-grid"></div><div class="scene-glow"></div>
+          <div class="scene-caption"><span class="scene-tag"><i class="live-dot"></i> EXPERIMENT IN PROGRESS</span><span class="scene-note">Drag chemicals into the vessel to begin</span></div>
+          <div class="window-view"><div class="window-light"></div><div class="window-frame"></div><div class="window-vial one"></div><div class="window-vial two"></div><div class="window-vial three"></div></div>
+          <div class="shelf shelf-back"><div class="shelf-line"></div><div class="shelf-jar jar-a"><i></i></div><div class="shelf-jar jar-b"><i></i></div><div class="shelf-jar jar-c"><i></i></div><div class="shelf-bottle"><i></i></div></div>
+          <div class="scene-equipment">
+            <div class="scale"><div class="scale-screen"><span id="scale-reading">0.00</span><small>g</small></div><div class="scale-top"></div><div class="scale-base"></div><span class="scale-label">PRECISION BALANCE</span></div>
+            <div class="thermo"><div class="thermo-top"></div><div class="thermo-stem"><span></span></div><div class="thermo-bulb"></div><div class="thermo-label">°C</div></div>
+            <div class="flask-zone" id="drop-zone" aria-label="Reaction vessel. Drop chemicals here">
+              <div class="flask-shadow"></div><div class="flask"><div class="flask-neck"></div><div class="flask-body"><div class="liquid" id="liquid"><div class="liquid-shine"></div><div class="bubbles" id="bubbles"></div><div class="precipitate" id="precipitate"></div></div><div class="flask-glint"></div><div class="flask-glint second"></div></div><div class="flask-rim"></div></div>
+              <div class="flask-label"><span id="vessel-label">ERLENMEYER FLASK</span><small id="vessel-volume">250 mL · BOROSILICATE</small></div>
+              <div class="drop-hint" id="drop-hint"><span>＋</span><b>Drop a chemical here</b><small>or select a material to add</small></div>
+            </div>
+            <div class="stir-rod"><div class="rod-glass"></div><div class="rod-tip"></div></div>
+            <div class="hotplate"><div class="hotplate-ring"></div><div class="hotplate-top"><div class="hotplate-disc"></div></div><div class="hotplate-front"><span class="heat-indicator"></span><span id="hotplate-temp">22°</span><i></i></div><div class="hotplate-caption">MAGNETIC STIRRER</div></div>
+            <div class="pipette"><div class="pipette-tip"></div><div class="pipette-body"></div><div class="pipette-cap"></div></div>
+          </div>
+          <div class="scene-floor"></div>
+          <div class="reaction-toast" id="reaction-toast"><span class="toast-icon">✦</span><div><b id="toast-title">Mixture updated</b><small id="toast-description">Material added to vessel</small></div><button id="toast-close">×</button></div>
+          <div class="view-controls"><button id="zoom-out" aria-label="Zoom out">−</button><span id="zoom-value">100%</span><button id="zoom-in" aria-label="Zoom in">＋</button><span class="view-separator"></span><button id="rotate-view" aria-label="Rotate view">⟳</button></div>
+        </div>
+        <div class="control-deck">
+          <div class="deck-title"><div><span class="eyebrow">EXPERIMENT CONTROLS</span><h3>Conditions &amp; measurements</h3></div><div class="safety-badge"><span>✓</span> SAFETY SYSTEM ACTIVE</div></div>
+          <div class="control-grid">
+            <div class="control-card temperature-card"><div class="control-label"><span class="control-icon temp-icon">♨</span><span>TEMPERATURE</span><b id="temp-display">22 <small>°C</small></b></div><input id="temp-slider" type="range" min="5" max="95" value="22" /><div class="range-labels"><span>5°C</span><span>Ambient</span><span>95°C</span></div></div>
+            <div class="control-card"><div class="control-label"><span class="control-icon">◉</span><span>PRESSURE</span><b>101.3 <small>kPa</small></b></div><div class="pressure-track"><span></span></div><div class="range-labels"><span>Atmospheric pressure</span><span>± 0.1 kPa</span></div></div>
+            <div class="control-card measure-card"><div class="control-label"><span class="control-icon">⌁</span><span>STIRRING</span><b id="stir-state">OFF</b></div><button id="stir-btn" class="toggle-switch" aria-label="Toggle stirring"><i></i></button><div class="range-labels"><span>Magnetic stirrer</span><span>300 rpm</span></div></div>
+            <button id="run-btn" class="run-button"><span class="run-symbol">▶</span><span><b>Analyze mixture</b><small>Evaluate supported chemistry</small></span><span class="run-arrow">→</span></button>
+          </div>
+        </div>
+      </section>
+      <aside class="analysis panel">
+        <div class="panel-heading"><div><div class="eyebrow">LIVE READINGS <span class="live-dot"></span></div><h2>Analysis</h2></div><button class="quiet-btn" id="info-btn" aria-label="Analysis information">···</button></div>
+        <div class="sample-card"><div class="sample-head"><span class="sample-orb" id="sample-orb"><i></i></span><div><b id="sample-name">Empty vessel</b><small id="sample-subtitle">Add materials to begin</small></div><span class="sample-state" id="sample-state">IDLE</span></div><div class="sample-divider"></div><div class="reading-grid"><div><small>TEMPERATURE</small><b><span id="read-temp">22</span><i>°C</i></b><em>± 0.5°</em></div><div><small>APPROX. MASS</small><b><span id="read-mass">0.00</span><i>g</i></b><em>± 0.02 g</em></div><div><small>EST. VOLUME</small><b><span id="read-volume">0</span><i>mL</i></b><em>± 1 mL</em></div><div><small>DENSITY</small><b><span id="read-density">—</span><i id="density-unit"></i></b><em>Model estimate</em></div></div></div>
+        <div class="section-heading"><span>VESSEL CONTENTS</span><span id="contents-count">0 MATERIALS</span></div>
+        <div class="contents-list" id="contents-list"><div class="empty-contents"><span>◌</span><p>Your vessel is empty</p><small>Select or drag materials from inventory</small></div></div>
+        <div class="section-heading result-heading"><span>OBSERVATION</span><span class="result-status" id="result-status">AWAITING</span></div>
+        <div class="observation" id="observation"><div class="observation-symbol">⌖</div><div><b>Ready for experimentation</b><p>Add one or more substances to the vessel, then analyze the mixture. The engine only reports curated outcomes.</p></div></div>
+        <div class="ph-meter"><div class="ph-title"><span>ESTIMATED pH</span><b id="ph-value">—</b></div><div class="ph-scale"><span class="ph-marker" id="ph-marker"></span></div><div class="ph-labels"><span>0 · Acidic</span><span>Neutral · 7</span><span>14 · Basic</span></div><small>Qualitative estimate; not a measured value</small></div>
+        <button class="journal-button" id="record-btn"><span>＋</span> Record observation <span class="journal-arrow">→</span></button>
+        <div class="source-note">MODELS ARE APPROXIMATE <button id="source-btn">View data sources ↗</button></div>
+      </aside>
+    </main>
+    <footer class="statusbar"><span><i class="status-led"></i> SIMULATION ENGINE ONLINE</span><span>CURATED REACTION SET <b>·</b> v1.0.4</span><span>MOLECULAR-LEVEL BEHAVIOR NOT SIMULATED</span><span>◈ PROTECTIVE EQUIPMENT RECOMMENDED</span></footer>
+  </div>
+  <div class="modal-backdrop" id="modal-backdrop"><section class="modal" role="dialog" aria-modal="true"><button class="modal-close" id="modal-close">×</button><div class="eyebrow" id="modal-eyebrow">LAB JOURNAL</div><h2 id="modal-title">Experiment journal</h2><div class="modal-content" id="modal-content"></div></section></div>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
