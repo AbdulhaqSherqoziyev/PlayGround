@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#101513" />
+  <link rel="icon" href="data:," />
+  <title>House of Kings — 3D Chess</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="House of Kings home"><span class="brand-mark">♞</span><span>HOUSE <i>OF</i> KINGS</span></a>
+      <div class="top-meta"><span class="live-dot"></span> THE PRIVATE ROOM <span class="meta-divider">/</span> EST. MMXXIV</div>
+      <button class="icon-button" id="sound-toggle" aria-label="Toggle sound" title="Sound on">♫</button>
+    </header>
+
+    <section class="main-layout">
+      <section class="board-column">
+        <div class="game-heading">
+          <div><p class="eyebrow">A GAME OF PATIENCE</p><h1>The King's <em>Gambit</em></h1></div>
+          <div class="game-number"><span>TABLE</span><strong>№ 01</strong></div>
+        </div>
+        <div class="board-stage">
+          <div class="board-frame"><div id="board-canvas" aria-label="Interactive 3D chess board"></div></div>
+          <div class="axis-labels files" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span></div>
+          <div class="axis-labels ranks" aria-hidden="true"><span>8</span><span>7</span><span>6</span><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span></div>
+          <div class="stage-caption"><span>DRAG TO ORBIT</span><span class="caption-line"></span><span>SCROLL TO ZOOM</span></div>
+        </div>
+        <div class="board-footer">
+          <div class="turn-indicator"><span class="turn-piece" id="turn-piece">♙</span><div><span class="eyebrow">TO MOVE</span><strong id="turn-name">White</strong></div></div>
+          <div class="game-status" id="game-status"><span class="status-pip"></span><span>Your move</span></div>
+          <button class="text-action" id="flip-board"><span>↻</span> FLIP BOARD</button>
+        </div>
+      </section>
+
+      <aside class="side-panel">
+        <div class="panel-tabs"><span class="tab active">THE MATCH</span><span class="tab-subtle">CLASSICAL</span></div>
+        <div class="match-card">
+          <div class="match-top"><div><span class="eyebrow">WHITE</span><h2>Player One</h2></div><div class="avatar white-avatar">♙</div></div>
+          <div class="match-score"><span>YOU</span><span class="score-dash">—</span><span>1,240</span></div>
+        </div>
+        <div class="versus"><span></span><i>VS</i><span></span></div>
+        <div class="match-card opponent-card">
+          <div class="match-top"><div><span class="eyebrow">BLACK</span><h2 id="opponent-name">The House</h2></div><div class="avatar black-avatar">♟</div></div>
+          <div class="match-score"><span id="mode-label">COMPUTER · CASUAL</span><span class="score-dash">—</span><span>1,380</span></div>
+        </div>
+        <button class="mode-toggle" id="mode-toggle"><span class="mode-icon">♟</span><span><b id="mode-title">Playing the computer</b><small>Switch to local two-player</small></span><span class="toggle-track"><i></i></span></button>
+        <section class="moves-section">
+          <div class="section-heading"><span class="eyebrow">MOVES</span><span class="move-count" id="move-count">0 PLY</span></div>
+          <div class="move-list" id="move-list"><div class="empty-moves"><span>♜</span><p>The board is set.<br>Make your opening move.</p></div></div>
+        </section>
+        <div class="panel-actions">
+          <button class="action-button" id="undo-button" disabled><span>↶</span> UNDO</button>
+          <button class="action-button" id="new-game"><span>＋</span> NEW GAME</button>
+        </div>
+        <p class="panel-footnote">A quiet mind sees every move.</p>
+      </aside>
+    </section>
+    <footer class="site-footer"><span>HOUSE OF KINGS <b>·</b> A STUDY IN STRATEGY</span><span>DESIGNED FOR THE LONG GAME</span></footer>
+  </main>
+  <div class="promotion-modal" id="promotion-modal" aria-hidden="true"><div class="promotion-card"><span class="eyebrow">A PAWN'S AMBITION</span><h2>Promote to</h2><div class="promotion-options" id="promotion-options"></div></div></div>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+  <script type="module" src="./game.js"></script>
+</body>
+</html>
